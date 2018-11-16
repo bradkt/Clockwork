@@ -26,13 +26,6 @@ namespace Clockwork.API.Controllers
             {
                 db.CurrentTimeQueries.Add(returnVal);
                 var count = db.SaveChanges();
-                //Console.WriteLine("{0} records saved to database", count);
-
-          
-                //foreach (var CurrentTimeQuery in db.CurrentTimeQueries)
-                //{
-                //    Console.WriteLine(" - {0}", CurrentTimeQuery.UTCTime);
-                //}
             }
 
             return Ok(returnVal);

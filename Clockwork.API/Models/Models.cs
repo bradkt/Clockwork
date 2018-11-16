@@ -5,8 +5,9 @@ namespace Clockwork.API.Models
 {
     public class ClockworkContext : DbContext
     {
+        public DbSet<CurrentTimeZone> CurrentTimeZones { get; set; }
         public DbSet<CurrentTimeQuery> CurrentTimeQueries { get; set; }
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=clockwork.db");
@@ -18,6 +19,13 @@ namespace Clockwork.API.Models
         public int CurrentTimeQueryId { get; set; }
         public DateTime Time { get; set; }
         public string ClientIp { get; set; }
+        public DateTime UTCTime { get; set; }
+    }
+
+    public class CurrentTimeZone
+    {
+        public int CurrentTimeZoneId { get; set; }
+        public string TimeZoneName { get; set; }
         public DateTime UTCTime { get; set; }
     }
 }

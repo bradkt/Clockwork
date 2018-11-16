@@ -22,12 +22,29 @@ namespace Clockwork.API.Migrations
                 {
                     table.PrimaryKey("PK_CurrentTimeQueries", x => x.CurrentTimeQueryId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "CurrentTimeZones",
+                columns: table => new
+                {
+                    CurrentTimeZoneId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TimeZoneName = table.Column<string>(nullable: true),
+                    UTCTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CurrentTimeZones", x => x.CurrentTimeZoneId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "CurrentTimeQueries");
+
+            migrationBuilder.DropTable(
+                name: "CurrentTimeZones");
         }
     }
 }

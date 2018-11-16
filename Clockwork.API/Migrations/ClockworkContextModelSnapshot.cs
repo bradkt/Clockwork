@@ -34,6 +34,20 @@ namespace Clockwork.API.Migrations
 
                     b.ToTable("CurrentTimeQueries");
                 });
+
+            modelBuilder.Entity("Clockwork.API.Models.CurrentTimeZone", b =>
+                {
+                    b.Property<int>("CurrentTimeZoneId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("TimeZoneName");
+
+                    b.Property<DateTime>("UTCTime");
+
+                    b.HasKey("CurrentTimeZoneId");
+
+                    b.ToTable("CurrentTimeZones");
+                });
 #pragma warning restore 612, 618
         }
     }

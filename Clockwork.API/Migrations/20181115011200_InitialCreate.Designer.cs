@@ -11,7 +11,7 @@ using System;
 namespace Clockwork.API.Migrations
 {
     [DbContext(typeof(ClockworkContext))]
-    [Migration("20171207214527_InitialCreate")]
+    [Migration("20181115011200_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,20 @@ namespace Clockwork.API.Migrations
                     b.HasKey("CurrentTimeQueryId");
 
                     b.ToTable("CurrentTimeQueries");
+                });
+
+            modelBuilder.Entity("Clockwork.API.Models.CurrentTimeZone", b =>
+                {
+                    b.Property<int>("CurrentTimeZoneId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("TimeZoneName");
+
+                    b.Property<DateTime>("UTCTime");
+
+                    b.HasKey("CurrentTimeZoneId");
+
+                    b.ToTable("CurrentTimeZones");
                 });
 #pragma warning restore 612, 618
         }

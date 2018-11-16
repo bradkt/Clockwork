@@ -19,7 +19,10 @@
         computed: {
             displayData: function () {
                 return (this.isDisplayLocalized ? this.allDataEntriesLocalized : this.allDataEntries);
-            }
+            },
+            toggleMessage: function () {
+                return (this.isDisplayLocalized ? "View Server Time" : "View Local Time");
+            },
         },
         methods: {
             GetCurrentTime: function () {

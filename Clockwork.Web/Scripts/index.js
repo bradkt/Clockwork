@@ -27,17 +27,17 @@
         methods: {
             GetCurrentTime: function () {
                 var url = "http://localhost:56253/api/currenttime";
-                this.RequestData(url, this.SetCurrentTimeRequest);
-            },
-            SetCurrentTimeRequest: function (resp) {
-                this.currentTimeRequest = JSON.parse(resp);
+                var _this = this;
+                this.RequestData(url).then(function (resp) {
+                    _this.currentTimeRequest = JSON.parse(resp);
+                });
             },
             GetAllData: function () {
                 var url = "http://localhost:56253/api/clockworkdata";
-                this.RequestData(url, this.SetAllDataEntries);
-            },
-            SetAllDataEntries: function (resp) {
-                this.allDataEntries = JSON.parse(resp);
+                var _this = this;
+                this.RequestData(url).then(function (resp) {
+                    _this.allDataEntries = JSON.parse(resp);
+                });
             },
             ToggleDisplayData: function () {
                 this.isDisplayLocalized = !this.isDisplayLocalized;
@@ -55,16 +55,33 @@
                     this.allDataEntriesLocalized.push(entry);
                 };
             },
-            RequestData: function (url, cb) {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        cb(this.responseText);
+            RequestData: function (url) {
+                return Q.Promise(function (resolve, reject, notify) {
+                    var xhttp = new XMLHttpRequest();
+
+                    xhttp.open("GET", url, true);
+                    xhttp.setRequestHeader("Content-type", "application/json");
+                    xhttp.onload = onload;
+                    xhttp.onerror = onerror;
+                    xhttp.onprogress = onprogress;
+                    xhttp.send();
+
+                    function onload() {
+                        if (xhttp.status === 200) {
+                            resolve(xhttp.responseText);
+                        } else {
+                            reject(new Error("Status code was " + xhttp.status));
+                        }
                     }
-                };
-                xhttp.open("GET", url, true);
-                xhttp.setRequestHeader("Content-type", "application/json");
-                xhttp.send();
+
+                    function onerror() {
+                        reject(new Error("Can't XHR " + JSON.stringify(url)));
+                    }
+
+                    function onprogress(event) {
+                        notify(event.loaded / event.total);
+                    }
+                });
             },
             RecordTimeZone: function (url, timezone) {
                 var xhttp = new XMLHttpRequest();

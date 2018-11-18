@@ -1,79 +1,73 @@
-﻿<body data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+﻿
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="#">AWH Clockwork Project @ViewData["Version"] on @ViewData["Runtime"]!</a>
+    </div>
+</nav>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">AWH Clockwork Project @ViewData["Version"] on @ViewData["Runtime"]!</a>
-            </div>
-        </div>
-    </nav>
+<div class="container has-text-centered" id="app" v-cloak>
 
-
-    <div class="container main" id="app" v-cloak>
-
-        <div class="two-column">
-            <div>
-                <button class="btn btn-lg" v-on:click="GetCurrentTime">Get the time</button>
-            </div>
-
-            <div>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <td>Id</td>
-                                <td>time</td>
-                                <td>clientIp</td>
-                                <td>utcTime</td>
-                            </tr>
-                            <tr>
-                                <td>{{ currentTimeRequest.currentTimeQueryId }}</td>
-                                <td>{{ currentTimeRequest.time }}</td>
-                                <td>{{ currentTimeRequest.clientIp }}</td>
-                                <td>{{ currentTimeRequest.utcTime }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
+    <div class="columns is-centered">
+        <div class="column is-one-thirds">
+            <button class="button is-large is-primary" v-on:click="GetCurrentTime">Get the time</button>
         </div>
 
-        <div class="two-column">
-            <div class="">
-                <select class="btn btn-secondary dropdown-toggle" v-model="targetZone">
+        <div class="column is-two-thirds">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Id</td>
+                        <td>time</td>
+                        <td>clientIp</td>
+                        <td>utcTime</td>
+                    </tr>
+                    <tr>
+                        <td>{{ currentTimeRequest.currentTimeQueryId }}</td>
+                        <td>{{ currentTimeRequest.time }}</td>
+                        <td>{{ currentTimeRequest.clientIp }}</td>
+                        <td>{{ currentTimeRequest.utcTime }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="columns is-centered">
+        <div class="column is-one-thirds">
+            <button class="button is-large is-primary" v-on:click="ToggleDisplayData">{{ toggleMessage }}</button>
+        </div>
+
+        <div class="column is-two-thirds">
+            <div class="select">
+                <select v-model="targetZone">
                     <option v-for="zone in timezones" v-bind:value="zone" v-on:click="UpdateToLocalizedTime">{{ zone }}</option>
                 </select>
-            </div>
-            <div class="">
-                <button class="btn btn-lg" v-on:click="ToggleDisplayData">{{ toggleMessage }}</button>
-            </div>
-        </div>
-
-        <div class="row">
-            <h2 class="sub-header">Previous Entries</h2>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>time</th>
-                            <th>clientIp</th>
-                            <th>utcTime</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="entry in displayData">
-                            <td>{{ entry.currentTimeQueryId }}</td>
-                            <td>{{ entry.time }}</td>
-                            <td>{{ entry.clientIp }}</td>
-                            <td>{{ entry.utcTime }}</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
 
     </div>
 
-</body>
+    <div class="">
+        <h1 class="">Previous Entries</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>time</th>
+                    <th>clientIp</th>
+                    <th>utcTime</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="entry in displayData">
+                    <td>{{ entry.currentTimeQueryId }}</td>
+                    <td>{{ entry.time }}</td>
+                    <td>{{ entry.clientIp }}</td>
+                    <td>{{ entry.utcTime }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

@@ -1,32 +1,11 @@
-﻿.main {
-    margin-top: 60px;
-}
-
-.two-column {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    margin: 20px 0;
-}
-
-.two-column > div {
-    margin: 0 20px;
+﻿.navbar {
+    margin-bottom: 25px;
 }
 
 [v-cloak] {
     display: none;
 }
 
-.btn {
-    border: 1px solid black;
-}
-
-@media screen and (max-width: 750px) {
-    .two-column {
-        display: block;
-    }
-
-    .two-column > div {
-        width: 90%;
-        margin: 30px 10px;
-    }
+table {
+    width: 90%;
 }

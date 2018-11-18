@@ -41,8 +41,10 @@
             },
             ToggleDisplayData: function () {
                 this.isDisplayLocalized = !this.isDisplayLocalized;
+
                 if (this.isDisplayLocalized) {
                     var url = "http://localhost:56253/api/timezone" + "?selectedTimeZone=" + this.targetZone;
+
                     this.MakeRequest(url);
                     
                     this.allDataEntriesLocalized = [];
@@ -50,14 +52,12 @@
                 }
             },
             UpdateToLocalizedTime: function (dataArray) {
-                
                 var clone = _.map(dataArray, _.clone);
+
                 for (i = 0; i < clone.length; i++) {
                     var entry = clone[i];
                     entry.time = moment(entry.time).tz(this.targetZone).format('MMMM Do YYYY, h:mm:ss a');
-                    //this.allDataEntriesLocalized.push(entry);
                 };
-
                 return clone;
             },
             MakeRequest: function (url) {
@@ -84,7 +84,6 @@
                     }
 
                     function onprogress(event) {
-                        console.log(event);
                         notify(event.loaded / event.total);
                     }
                 });

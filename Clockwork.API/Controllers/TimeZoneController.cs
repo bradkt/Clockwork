@@ -23,7 +23,8 @@ namespace Clockwork.API.Controllers
 
             using (var db = new ClockworkContext())
             {
-                db.CurrentTimeZones.Update(timezone);
+                ///db.CurrentTimeZones.Update(timezone);
+                db.CurrentTimeZones.Add(timezone);
                 db.SaveChanges();
             }
 
